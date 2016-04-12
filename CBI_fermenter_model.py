@@ -79,18 +79,17 @@ for i, t in enumerate(tspan):
      Cf_list.append(N[4]/N[6])
      Ce_list.append(N[5]/N[6])
      
-#print Cl_list[-1]*30.03
-#print yield_list[0]
-#plot.plot(tspan, Ce_list, color='blue', label='e')
-plot.plot(Cl_list, yield_list, color='black', label='yield')
-#plot.plot(tspan, Cs_list, color='red',label='s')
-#plot.plot(tspan, Cx_list, color='green',label='x')
-##
-#plot.plot(tspan, Cl_list, color='black',label='l')
-#plot.plot(tspan, Cf_list, color='yellow',label='f')
-##
-#plot.plot(tspan, Cg_list, color='cyan',label='g')
-#plot.legend(loc='best')
-#plot.ylabel('Concentration cmol/L') 
-#plot.xlabel('time (h)') 
+
+plot.plot(tspan, Ce_list, color='blue', label='e')
+#plot.plot(Cl_list, yield_list, color='black', label='yield')
+plot.plot(tspan, Cs_list, color='red',label='s')
+plot.plot(tspan, Cx_list, color='green',label='x')
+#
+plot.plot(tspan, Cl_list, color='black',label='l')
+plot.plot(tspan, Cf_list, color='yellow',label='f')
+#
+plot.plot(tspan, Cg_list, color='cyan',label='g')
+plot.legend(loc='best')
+plot.ylabel('Concentration cmol/L') 
+plot.xlabel('time (h)') 
 plot.show()
