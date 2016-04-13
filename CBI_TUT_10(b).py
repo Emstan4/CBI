@@ -6,7 +6,6 @@ Created on Wed Mar 30 14:26:32 2016
 """
 
 from __future__ import division
-#from numpy.linalg import matrix_rank
 import numpy
 a = 0.1
 b = 0.1
