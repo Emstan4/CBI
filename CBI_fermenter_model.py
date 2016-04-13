@@ -30,15 +30,16 @@ def r_prime(C):
     Cx, Cs, Cg, Clac, Cf, Ce = C
     
     mu = mumax*((1 + (Clac/Kp))**(-1))*(Cs/(Km+Cs))
-    thetha = thethamax#*(Cs/(Km+Cs))
+    thetha = thethamax*(Cs/(Km+Cs))
     r_x = mu
     r_s = -((Yg[0]/Yg[1])*mu + (Ym[0]/Ym[6])*thetha)
     r_g = (Yg[2]/Yg[1])*mu + (Ym[2]/Ym[6])*thetha
     r_l = (Yg[3]/Yg[1])*mu + (Ym[3]/Ym[6])*thetha
     r_f = (Yg[4]/Yg[1])*mu + (Ym[4]/Ym[6])*thetha
     r_e = (Yg[5]/Yg[1])*mu + (Ym[5]/Ym[6])*thetha
+    z = ((Yg[0]/Yg[1])*mu)/abs(r_s)
     
-    return [r_x, r_s, r_g, r_l, r_f, r_e]
+    return [r_x, r_s, r_g, r_l, r_f, r_e, z]
              
 def dNdt_fun(N,t):
     Cx, Cs, Cg, Clac, Cf, Ce, V = N[0]/N[6],    N[1]/N[6],  N[2]/N[6],  N[3]/N[6],  N[4]/N[6],  N[5]/N[6],  N[6]  #calculating and naming concentration and volume 
@@ -52,7 +53,7 @@ def dNdt_fun(N,t):
             Qf*Cef - Q*Ce + (r[5])*Cx*V,
             Qf - Q]  
             
-tspan = np.arange(0,30,0.001)
+tspan = np.arange(0,36,0.001)
 dt = tspan[1]
 Cx_list =  []
 Cs_list =  []
@@ -67,6 +68,7 @@ acc_yld_list = []
 ins_yld_list = []
 rate_lac = []
 rate_glu = []
+z_list = []
 for i, t in enumerate(tspan):
      mat = dNdt_fun(No, t)
      mat = np.array(mat)
@@ -75,6 +77,7 @@ for i, t in enumerate(tspan):
      Cx, Cs, Cg, Clac, Cf, Ce, V = N[0]/N[6],    N[1]/N[6],  N[2]/N[6],  N[3]/N[6],  N[4]/N[6],  N[5]/N[6],  N[6]
      r = r_prime([Cx, Cs, Cg,Clac, Cf, Ce])
      acc_yld = Clac/(Co[1] - Cs)
+     z_list.append(r[-1])
      acc_yld_list.append(acc_yld)
      rate_lac.append(r[3])
      rate_glu.append(r[1])
@@ -90,10 +93,8 @@ for i, t in enumerate(tspan):
      
 
 
-plot.plot(Cl_list, ins_yld_list, color='red',label='instant')
-plot.plot(Cl_list, acc_yld_list, color='black',label='accumu')
+plot.plot(tspan, z_list, color='red',label='z')
 
-plot.ylim([0.8,0.92])
 plot.legend(loc='best')
 plot.ylabel('Concentration cmol/L') 
 plot.xlabel('time (h)') 
