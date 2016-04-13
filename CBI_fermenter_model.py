@@ -30,7 +30,7 @@ def r_prime(C):
     Cx, Cs, Cg, Clac, Cf, Ce = C
     
     mu = mumax*((1 + (Clac/Kp))**(-1))*(Cs/(Km+Cs))
-    thetha = thethamax#*(Cs/(Km+Cs))
+    thetha = thethamax*(Cs/(Km+Cs))
     r_x = mu
     r_s = -((Yg[0]/Yg[1])*mu + (Ym[0]/Ym[6])*thetha)
     r_g = (Yg[2]/Yg[1])*mu + (Ym[2]/Ym[6])*thetha
