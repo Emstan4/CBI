@@ -52,7 +52,7 @@ def dNdt_fun(N,t):
             Qf*Cef - Q*Ce + (r[5])*Cx*V,
             Qf - Q]  
             
-tspan = np.arange(0,36,0.001)
+tspan = np.arange(0,35,0.001)
 dt = tspan[1]
 Cx_list =  []
 Cs_list =  []
@@ -63,6 +63,7 @@ Cf_list =  []
 
 Ce_list =  []
 yield_list = []
+acc_yld_list = []
 for i, t in enumerate(tspan):
      mat = dNdt_fun(No, t)
      mat = np.array(mat)
@@ -70,7 +71,10 @@ for i, t in enumerate(tspan):
      No = N
      Cx, Cs, Cg, Clac, Cf, Ce, V = N[0]/N[6],    N[1]/N[6],  N[2]/N[6],  N[3]/N[6],  N[4]/N[6],  N[5]/N[6],  N[6]
      r = r_prime([Cx, Cs, Cg,Clac, Cf, Ce])
+     acc_yld = Clac/(Co[1] - Cs)
+     acc_yld_list.append(acc_yld)
      yield_list.append(r[3]/abs(r[1]))
+     
      #print N[3]
      Cx_list.append(N[0]/N[6])
      Cs_list.append(N[1]/N[6])
@@ -81,7 +85,7 @@ for i, t in enumerate(tspan):
      
 
 
-plot.plot(tspan, Cs_list, color='red',label='s')
+plot.plot(tspan, acc_yld_list, color='red',label='s')
 
 plot.legend(loc='best')
 plot.ylabel('Concentration cmol/L') 
