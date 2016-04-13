@@ -52,7 +52,7 @@ def dNdt_fun(N,t):
             Qf*Cef - Q*Ce + (r[5])*Cx*V,
             Qf - Q]  
             
-tspan = np.arange(0,24,0.001)
+tspan = np.arange(0,36,0.001)
 dt = tspan[1]
 Cx_list =  []
 Cs_list =  []
@@ -80,4 +80,10 @@ for i, t in enumerate(tspan):
      Ce_list.append(N[5]/N[6])
      
 
-print 'Concentration after 24 hr = ', Cl_list[-1]*30., 'g/L'
+
+plot.plot(tspan, Cs_list, color='red',label='s')
+
+plot.legend(loc='best')
+plot.ylabel('Concentration cmol/L') 
+plot.xlabel('time (h)') 
+plot.show()
