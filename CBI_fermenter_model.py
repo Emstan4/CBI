@@ -52,7 +52,7 @@ def dNdt_fun(N,t):
             Qf*Cef - Q*Ce + (r[5])*Cx*V,
             Qf - Q]  
             
-tspan = np.arange(0,35.5,0.01)
+tspan = np.arange(0,30,0.001)
 dt = tspan[1]
 Cx_list =  []
 Cs_list =  []
@@ -62,8 +62,9 @@ Cl_list =  []
 Cf_list =  []
 
 Ce_list =  []
-yield_list = []
+
 acc_yld_list = []
+ins_yld_list = []
 rate_lac = []
 rate_glu = []
 for i, t in enumerate(tspan):
@@ -77,7 +78,7 @@ for i, t in enumerate(tspan):
      acc_yld_list.append(acc_yld)
      rate_lac.append(r[3])
      rate_glu.append(r[1])
-     yield_list.append(r[3]/abs(r[1]))
+     ins_yld_list.append(r[3]/abs(r[1]))
      
      #print N[3]
      Cx_list.append(N[0]/N[6])
@@ -89,10 +90,11 @@ for i, t in enumerate(tspan):
      
 
 
-plot.plot(tspan, rate_lac,color='red',label='$r_{lac}$')
-plot.plot(tspan, rate_glu,color='black',label='$r_{glu}$')
-#plot.ylim([0.8, 0.92])
+plot.plot(Cl_list, ins_yld_list, color='red',label='instant')
+plot.plot(Cl_list, acc_yld_list, color='black',label='accumu')
+
+plot.ylim([0.8,0.92])
 plot.legend(loc='best')
-plot.ylabel('Rate cmol/cmolXh') 
+plot.ylabel('Concentration cmol/L') 
 plot.xlabel('time (h)') 
 plot.show()
