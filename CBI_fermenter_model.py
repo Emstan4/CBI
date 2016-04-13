@@ -52,7 +52,7 @@ def dNdt_fun(N,t):
             Qf*Cef - Q*Ce + (r[5])*Cx*V,
             Qf - Q]  
             
-tspan = np.arange(0,30,0.001)
+tspan = np.arange(0,24,0.001)
 dt = tspan[1]
 Cx_list =  []
 Cs_list =  []
@@ -80,16 +80,4 @@ for i, t in enumerate(tspan):
      Ce_list.append(N[5]/N[6])
      
 
-plot.plot(tspan, Ce_list, color='blue', label='e')
-#plot.plot(Cl_list, yield_list, color='black', label='yield')
-plot.plot(tspan, Cs_list, color='red',label='s')
-plot.plot(tspan, Cx_list, color='green',label='x')
-#
-plot.plot(tspan, Cl_list, color='black',label='l')
-plot.plot(tspan, Cf_list, color='yellow',label='f')
-#
-plot.plot(tspan, Cg_list, color='cyan',label='g')
-plot.legend(loc='best')
-plot.ylabel('Concentration cmol/L') 
-plot.xlabel('time (h)') 
-plot.show()
+print 'Concentration after 24 hr = ', Cl_list[-1]*30., 'g/L'
