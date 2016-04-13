@@ -49,7 +49,6 @@ Yla_o = np.asarray(r_la/r_s)
 Yla_o = np.reshape(Yla_o, npoints)
 Yet_o = r_et/r_s
 
-plot.plot(cla, Yla_o)
-plot.show()
+print Yla_o
 
 
