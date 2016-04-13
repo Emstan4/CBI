@@ -49,6 +49,8 @@ Yla_o = np.asarray(r_la/r_s)
 Yla_o = np.reshape(Yla_o, npoints)
 Yet_o = r_et/r_s
 
-print Yla_o
+plot.plot(cla, Yla_o)
+plot.ylim([0.8, 0.92])
+plot.show()
 
 

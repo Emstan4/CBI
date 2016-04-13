@@ -85,8 +85,8 @@ for i, t in enumerate(tspan):
      
 
 
-plot.plot(tspan, acc_yld_list, color='red',label='s')
-
+plot.plot(Cl_list, acc_yld_list, color='red',label='s')
+plot.ylim([0.8, 0.92])
 plot.legend(loc='best')
 plot.ylabel('Concentration cmol/L') 
 plot.xlabel('time (h)') 
