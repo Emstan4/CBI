@@ -13,9 +13,10 @@ from matplotlib import pyplot as plot
 
 
 
+
 #   gluc      X         SA      Atp
-Yg = [1,      0.0415,  1.093,    0.07475]
-Ym = [1,           0,    8/7,    0.07937]
+Yg = [1,  0.17057569,  0.93816631,    0.30703625]
+Ym = [1,           0,         8/7,    0.38095238]
 
 Qf = Q = Cxf = Csf  =  Csaf = 0                    #For now it is a batch fermenter
 Vo = 2000       
@@ -29,8 +30,10 @@ def r_prime(C):
     
     Cx, Cs, Csa = C
     
-    mu = mumax*((1 - (Csa/Csa_k)))*(Cs/(Km+Cs))
+    mu = mumax*(1 - (Csa/Csa_k))*(Cs/(Km+Cs))
     thetha = (thethamax*(1 + (Csa/Kp))**-1)*(Cs/(Km+Cs))
+    if mu < 0:                 # there may be more ethanol production via maintenance, don't want negative mu's
+        mu=0
     r_x = mu
     r_s = -((Yg[0]/Yg[1])*mu + (Ym[0]/Ym[3])*thetha)    
     r_sa = (Yg[2]/Yg[1])*mu + (Ym[2]/Ym[3])*thetha
@@ -47,7 +50,7 @@ def dNdt_fun(N,t):
             Qf*Csaf - Q*Csa + (r[2])*Cx*V,
             Qf - Q]  
             
-tspan = np.arange(0,100,0.01)
+tspan = np.arange(0,250,0.1)
 dt = tspan[1]
 Cx_list =  []
 Cs_list =  []
