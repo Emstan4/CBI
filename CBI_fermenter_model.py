@@ -24,8 +24,8 @@ Vo = 2000
 Co = np.array([0.000813,    3.33,    0,      1.0])             #[X, Gluc, Gly, Et and Vo/Vo] at t=0 in cmol/L
 No = Co*Vo                                  #total initial cmol in the fermenter and volume at the end (see below why)
 mumax, thethamax, Km = 0.25 , 0.32, 0.006
-Kp = 8/21.5
-Csa_k = 35/21.5
+Kp = 8/30
+Csa_k = 35/30
 def r_prime(C):
     
     Cx, Cs, Csa = C
@@ -70,8 +70,8 @@ for i, t in enumerate(tspan):
 
      
 plot.plot(tspan, Csa_list ,color='red',label='$r_{sa}$')
-plot.plot(tspan, Cs_list,color='black',label='$r_{glu}$')
-
+plot.plot(tspan, Cs_list,color='black',label='$r_{S}$')
+plot.plot(tspan, Cx_list,color='blue',label='$r_{X}$')
 plot.legend(loc='best')
 plot.ylabel('Concentration cmol/L') 
 plot.xlabel('time (h)') 
