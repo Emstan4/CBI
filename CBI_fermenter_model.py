@@ -50,12 +50,12 @@ def dNdt_fun(N,t):
             Qf*Csaf - Q*Csa + (r[2])*Cx*V,
             Qf - Q]  
             
-tspan = np.arange(0,250,0.1)
+tspan = np.arange(0,250,0.01)
 dt = tspan[1]
 Cx_list =  []
 Cs_list =  []
 Csa_list =  []
-
+r_list = []
 for i, t in enumerate(tspan):
      mat = dNdt_fun(No, t)
      mat = np.array(mat)
@@ -63,16 +63,20 @@ for i, t in enumerate(tspan):
      No = N
      Cx, Cs, Csa, V = N[0]/N[3],    N[1]/N[3],  N[2]/N[3],  N[3]
      r = r_prime([Cx, Cs, Csa])
-
+     rsa = Cx*r[2]*30.03
+     r_list.append(rsa)
      Cx_list.append(Cx)
      Cs_list.append(Cs)
      Csa_list.append(Csa)
 
      
-plot.plot(tspan, Csa_list ,color='red',label='$r_{sa}$')
-plot.plot(tspan, Cs_list,color='black',label='$r_{S}$')
-plot.plot(tspan, Cx_list,color='blue',label='$r_{X}$')
-plot.legend(loc='best')
+#plot.plot(tspan, Csa_list ,color='red',label='$r_{sa}$')
+#plot.plot(tspan, Cs_list,color='black',label='$r_{S}$')
+#plot.plot(tspan, Cx_list,color='blue',label='$r_{X}$')
+     
+#plot.legend(loc='best')
+print np.average(r_list)
+plot.plot(tspan, r_list)
 plot.ylabel('Concentration cmol/L') 
 plot.xlabel('time (h)') 
 plot.show()
