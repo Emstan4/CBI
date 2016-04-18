@@ -9,17 +9,15 @@ from __future__ import division
 import numpy
 import pandas
 
-Sg = numpy.matrix(pandas.read_excel('constant.xlsx'))
+Sg = numpy.matrix(pandas.read_excel('constants.xlsx'))
 def constants(M, mode):
+    a = numpy.zeros(len(M))
+    a[0] = 1
+    a[-2] = 0.02
+    a = numpy.matrix(a).T
     if mode == 'main':
-        a = numpy.zeros(len(M))
-        a[0] = 1
-        M[-1] = a
-        a = numpy.matrix(a).T
-    elif mode == 'grow':
-        a = numpy.zeros(len(M))
-        a[0] = 1
-        a = numpy.matrix(a).T
+        M[-1] = a        
+
     return a
         
 C = constants(Sg, 'grow')
