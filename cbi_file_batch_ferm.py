@@ -58,7 +58,7 @@ rp = r[:,2]
 Y_ins = rp/rs
 #
 ##accumulated yield
-#Y_acc = N[:,2]/(No[1] - N[:,1])
+Y_acc = N[:,2]/(No[1] - N[:,1])
 #
 #print Y[-1]
 #print Y_acc[-1]
@@ -69,10 +69,12 @@ Cx=N[:,0]/N[:,3]                           #devide cmol amount by the volume to 
 Cs=N[:,1]/N[:,3]
 Cp=N[:,2]/N[:,3]
 
-Y_ins_400= np.interp(400,tspan , Y_ins)
+Y_ins_1430= np.interp(1430,tspan , Y_ins)
+Y_acc_1430= np.interp(1430,tspan , Y_acc)
 #vol_prod = max(Cp)/t_end
 
-print "Y instantaneous(400) = ", Y_ins_400    
+print "Y instantaneous(1430) = ", Y_ins_1430  
+print "Y accumulated(1430) = ", Y_acc_1430  
 
 #plot.plot(tspan, Cp ,color='red',label='$C_{SA}$')
 #plot.plot(tspan, Cs,color='black',label='$C_{S}$')
