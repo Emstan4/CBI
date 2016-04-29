@@ -48,9 +48,9 @@ tspan = np.arange(0,2000,0.05)
 dt = tspan[1]
 
 N = odeint(dNdt_fun, No, tspan)
-#Ci=(N[:, :3].T/N[:, 3]).T
-#r = np.asarray([r_prime(C) for C in Ci])
-#rx = r[:,0]
+Ci=(N[:, :3].T/N[:, 3]).T
+r = np.asarray([r_prime(C) for C in Ci])
+rx = r[:,0]
 #rs = -r[:,1]
 #rp = r[:,2]
 #
@@ -69,12 +69,11 @@ Cx=N[:,0]/N[:,3]                           #devide cmol amount by the volume to 
 Cs=N[:,1]/N[:,3]
 Cp=N[:,2]/N[:,3]
 
-t_end = np.interp(0.01, Cs[::-1], tspan[::-1])
-vol_prod = max(Cp)/t_end
+rx_400= np.interp(400,tspan , rx)
+#vol_prod = max(Cp)/t_end
 
-print "t_final:", t_end, "hours"     
-print "volumetric productivity:", vol_prod, "cmol/L/hr" 
-print "Product Concentration:", max(Cp), "cmol/L" 
+print "mu(400) = ", rx_400, "1/h"     
+
 #plot.plot(tspan, Cp ,color='red',label='$C_{SA}$')
 #plot.plot(tspan, Cs,color='black',label='$C_{S}$')
 #plot.plot(tspan, Cx,color='blue',label='$C_{X}$')
