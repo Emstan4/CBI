@@ -52,10 +52,10 @@ Ci=(N[:, :3].T/N[:, 3]).T
 r = np.asarray([r_prime(C) for C in Ci])
 rx = r[:,0]
 rs = -r[:,1]
-#rp = r[:,2]
+rp = r[:,2]
 #
 ##instantaneous yield
-#Y = rp/rs
+Y_ins = rp/rs
 #
 ##accumulated yield
 #Y_acc = N[:,2]/(No[1] - N[:,1])
@@ -69,10 +69,10 @@ Cx=N[:,0]/N[:,3]                           #devide cmol amount by the volume to 
 Cs=N[:,1]/N[:,3]
 Cp=N[:,2]/N[:,3]
 
-z_400= np.interp(400,tspan , z)
+Y_ins_400= np.interp(400,tspan , Y_ins)
 #vol_prod = max(Cp)/t_end
 
-print "z(400) = ", z_400    
+print "Y instantaneous(400) = ", Y_ins_400    
 
 #plot.plot(tspan, Cp ,color='red',label='$C_{SA}$')
 #plot.plot(tspan, Cs,color='black',label='$C_{S}$')
