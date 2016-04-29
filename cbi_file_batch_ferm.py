@@ -51,7 +51,7 @@ N = odeint(dNdt_fun, No, tspan)
 Ci=(N[:, :3].T/N[:, 3]).T
 r = np.asarray([r_prime(C) for C in Ci])
 rx = r[:,0]
-#rs = -r[:,1]
+rs = -r[:,1]
 #rp = r[:,2]
 #
 ##instantaneous yield
@@ -62,17 +62,17 @@ rx = r[:,0]
 #
 #print Y[-1]
 #print Y_acc[-1]
-#z = (Yg[1]/Yg[0])*rx/rs
+z = (Yg[1]/Yg[0])*rx/rs
 
 
 Cx=N[:,0]/N[:,3]                           #devide cmol amount by the volume to get concentration 
 Cs=N[:,1]/N[:,3]
 Cp=N[:,2]/N[:,3]
 
-rx_400= np.interp(400,tspan , rx)
+z_400= np.interp(400,tspan , z)
 #vol_prod = max(Cp)/t_end
 
-print "mu(400) = ", rx_400, "1/h"     
+print "z(400) = ", z_400    
 
 #plot.plot(tspan, Cp ,color='red',label='$C_{SA}$')
 #plot.plot(tspan, Cs,color='black',label='$C_{S}$')
