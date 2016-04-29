@@ -70,7 +70,11 @@ Cs=N[:,1]/N[:,3]
 Cp=N[:,2]/N[:,3]
 
 t_end = np.interp(0.01, Cs[::-1], tspan[::-1])
+vol_prod = max(Cp)/t_end
+
 print "t_final:", t_end, "hours"     
+print "volumetric productivity:", vol_prod, "cmol/L/hr" 
+print "Product Concentration:", max(Cp), "cmol/L" 
 #plot.plot(tspan, Cp ,color='red',label='$C_{SA}$')
 #plot.plot(tspan, Cs,color='black',label='$C_{S}$')
 #plot.plot(tspan, Cx,color='blue',label='$C_{X}$')
