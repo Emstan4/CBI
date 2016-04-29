@@ -11,7 +11,7 @@ from matplotlib import pyplot as plot
 from scipy.integrate import odeint
     # X     S     P       ATP
 Yg = [0.25, 1 ,  0.52,    0.23]
-Ym = [0,    1 ,   0.8,    0.33]
+Ym = [0,    1 ,   0.8,    0.1]
 #            Xo So Po Qo Q 
 init_cond = [0, 0, 0, 0, 0]
 Vo = 5000       
@@ -69,12 +69,13 @@ Cx=N[:,0]/N[:,3]                           #devide cmol amount by the volume to 
 Cs=N[:,1]/N[:,3]
 Cp=N[:,2]/N[:,3]
 
-Y_ins_1430= np.interp(1430,tspan , Y_ins)
-Y_acc_1430= np.interp(1430,tspan , Y_acc)
+Cs_1430 = np.interp(1430,tspan , Cs)
+x = ((Co[1] - Cs_1430)/Co[1])*100
+#Y_acc_1430= np.interp(1430,tspan , Y_acc)
 #vol_prod = max(Cp)/t_end
 
-print "Y instantaneous(1430) = ", Y_ins_1430  
-print "Y accumulated(1430) = ", Y_acc_1430  
+print "Conversion after 1430 hrs = ", x  
+#print "Y accumulated(1430) = ", Y_acc_1430  
 
 #plot.plot(tspan, Cp ,color='red',label='$C_{SA}$')
 #plot.plot(tspan, Cs,color='black',label='$C_{S}$')
