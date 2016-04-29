@@ -44,7 +44,7 @@ def dNdt_fun(N,t):
     var.append(init_cond[-1]-init_cond[-2])
     return var
     
-tspan = np.arange(0,100,0.05)
+tspan = np.arange(0,2000,0.05)
 dt = tspan[1]
 
 N = odeint(dNdt_fun, No, tspan)
@@ -64,18 +64,20 @@ N = odeint(dNdt_fun, No, tspan)
 #print Y_acc[-1]
 #z = (Yg[1]/Yg[0])*rx/rs
 
- 
+
 Cx=N[:,0]/N[:,3]                           #devide cmol amount by the volume to get concentration 
 Cs=N[:,1]/N[:,3]
 Cp=N[:,2]/N[:,3]
-    
-plot.plot(tspan, Cp ,color='red',label='$C_{SA}$')
-plot.plot(tspan, Cs,color='black',label='$C_{S}$')
-plot.plot(tspan, Cx,color='blue',label='$C_{X}$')
-plot.legend(loc='best')
-plot.ylabel('Concentration cmol/L') 
-plot.xlabel('time (h)') 
-plot.show()
+
+t_end = np.interp(0.01, Cs[::-1], tspan[::-1])
+print "t_final:", t_end, "hours"     
+#plot.plot(tspan, Cp ,color='red',label='$C_{SA}$')
+#plot.plot(tspan, Cs,color='black',label='$C_{S}$')
+#plot.plot(tspan, Cx,color='blue',label='$C_{X}$')
+#plot.legend(loc='best')
+#plot.ylabel('Concentration cmol/L') 
+#plot.xlabel('time (h)') 
+#plot.show()
 #plot.plot(tspan, Y_acc)
 
   
