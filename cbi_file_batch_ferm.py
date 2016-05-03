@@ -11,7 +11,7 @@ from matplotlib import pyplot as plot
 from scipy.integrate import odeint
     # X     S     P       ATP
 Yg = [0.25, 1 ,  0.52,    0.23]
-Ym = [0,    1 ,   0.8,    0.1]
+Ym = [0,    1 ,   0.8,    0.333]
 #            Xo So Po Qo Q 
 init_cond = [0, 0, 0, 0, 0]
 Vo = 5000       
@@ -24,7 +24,7 @@ Ks = 0.5
 def r_prime(C):
         
     mu = mumax*C[1]/(Km+C[1])*((1 + C[1]/Ks)**(-2))
-    thetha = thethamax*(C[1]/(Km+C[1]))
+    thetha = 0#thethamax*(C[1]/(Km+C[1]))
     r = [mu]
     for i in range(len(Yg)-2):
         r.append((Yg[i+1]/Yg[0])*mu + (Ym[i+1]/Ym[-1])*thetha)        
