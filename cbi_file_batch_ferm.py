@@ -47,12 +47,14 @@ def dNdt_fun(N,t):
     var.append(init_cond[-2]*t - init_cond[-1])
     return var
     
-tspan = np.arange(0,130,0.05)
+tspan = np.arange(0,160,0.01)
 dt = tspan[1]
 
 N = odeint(dNdt_fun, No, tspan)
 Ci=(N[:, :3].T/N[:, 3]).T
 r = np.asarray([r_prime(C) for C in Ci])
+
+
 rx = r[:,0]
 rs = -r[:,1]
 rp = r[:,2]
@@ -72,15 +74,15 @@ Cx=N[:,0]/N[:,3]                           #divide cmol amount by the volume to 
 Cs=N[:,1]/N[:,3]
 Cp=N[:,2]/N[:,3]
 V = N[:,3]
-
-volume = np.interp(3.548, Cp, V)
-#prod = 3.548/time
+rprod = Cx*rp
+time = np.interp(3.548, Cp, tspan)
+prod = 3.548/time
 #sol = np.interp(0.00, C, tspan[::10])
 #x = ((Co[1] - Cs_1430)/Co[1])*100
 #Y_acc_1430= np.interp(1430,tspan , Y_acc)
 #vol_prod = max(Cp)/t_end
-
-print "volume(3.548 cmol/L) = ", volume, "L"
+print "Maximum rate:", max(rprod)
+print "Production rate(3.548 cmol/L) = ", prod, "cmol/h L"
 #print "Volumetric production rate:", prod, "cmol/L.h"
 #print "Y accumulated(1430) = ", Y_acc_1430  
 
@@ -91,6 +93,6 @@ print "volume(3.548 cmol/L) = ", volume, "L"
 #plot.ylabel('Concentration cmol/L') 
 #plot.xlabel('time (h)') 
 #plot.show()
-#plot.plot(tspan, Y_acc)
+plot.plot(tspan, rprod)
 
   
