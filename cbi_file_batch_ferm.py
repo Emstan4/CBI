@@ -11,7 +11,7 @@ from matplotlib import pyplot as plot
 from scipy.integrate import odeint
 
 
-kq = 0.61
+kq = 0.6
     # X     S     P       ATP
 Yg = [0.25, 1 ,  0.52,    0.23]
 Ym = [0,    1 ,   0.8,    0.333]
@@ -73,24 +73,24 @@ Cs=N[:,1]/N[:,3]
 Cp=N[:,2]/N[:,3]
 V = N[:,3]
 
-time = np.interp(3.548, Cp, tspan)
-prod = 3.548/time
+volume = np.interp(3.548, Cp, V)
+#prod = 3.548/time
 #sol = np.interp(0.00, C, tspan[::10])
 #x = ((Co[1] - Cs_1430)/Co[1])*100
 #Y_acc_1430= np.interp(1430,tspan , Y_acc)
 #vol_prod = max(Cp)/t_end
 
-print "Time(3.548 cmol/L) = ", time, "hr"
-print "Volumetric production rate:", prod, "cmol/L.h"
+print "volume(3.548 cmol/L) = ", volume, "L"
+#print "Volumetric production rate:", prod, "cmol/L.h"
 #print "Y accumulated(1430) = ", Y_acc_1430  
 
-plot.plot(tspan, Cp ,color='red',label='$C_{P}$')
-plot.plot(tspan, Cs,color='black',label='$C_{S}$')
-plot.plot(tspan, Cx,color='blue',label='$C_{X}$')
-plot.legend(loc='best')
-plot.ylabel('Concentration cmol/L') 
-plot.xlabel('time (h)') 
-plot.show()
+#plot.plot(tspan, Cp ,color='red',label='$C_{P}$')
+#plot.plot(tspan, Cs,color='black',label='$C_{S}$')
+#plot.plot(tspan, Cx,color='blue',label='$C_{X}$')
+#plot.legend(loc='best')
+#plot.ylabel('Concentration cmol/L') 
+#plot.xlabel('time (h)') 
+#plot.show()
 #plot.plot(tspan, Y_acc)
 
   
