@@ -11,28 +11,45 @@ from matplotlib import pyplot as plot
 from scipy.integrate import odeint
 
 
-kq = 0.005
-    # X     S     P       ATP
-Yg = [0.25, 1 ,  0.52,    0.23]
-Ym = [0,    1 ,   0.8,    0.333]
-#            Xo So Po Qo Q 
-init_cond = [0, 12, 0, kq, 0]
-Vo = 5000       
-#                 X          S      P     Vo/Vo             #1000 liter initial volume
-Co = np.array([0.0006,      0.02,    0,      1.0])             #[X, Gluc, Gly, Et and Vo/Vo] at t=0 in cmol/L
-No = Co*Vo
-mumax, thethamax, Km = 0.22 , 0.12, 0.0004
-Ks = 0.5
+#kq = 15
+#    # X     S     P       ATP
+#Yg = [0.25, 1 ,  0.52,    0.23]
+#Ym = [0,    1 ,   0.8,    0.333]
+##            Xo So Po Qo Q 
+#init_cond = [0, 12, 0, kq, 0]
+#Vo = 5000       
+##                 X          S      P     Vo/Vo             #1000 liter initial volume
+#Co = np.array([0.0006,      0.0,    0,      1.0])             #[X, Gluc, Gly, Et and Vo/Vo] at t=0 in cmol/L
+#No = Co*Vo
+#mumax, thethamax, Km = 0.22 , 0.12, 0.0004
+#Ks = 0.5
+mumax,thethamax, Km, Kp= 0.3, 0.14, 0.0005, 0.5
+#Cxo, Cso = 0.0003, 3.5
+Yg=[0.12, 1, 0.6 , 0.38] 
+Ym=[0, 1, 0.75, 0.46]                     
+Vo=10000                                   
+#Co=np.array([Cxo, Cso, 0, 1])     #[X, S, P, V]             
+#No=Co*Vo
+Cxf=Csf=Cpf=0 
 
+Cso=0
+Cxo = 0.0003
+Co=np.array([Cxo, Cso, 0, 1])     #[X, S, P, V]             
+No=Co*Vo
+Qf=Q=500                            # define throughflow 
+Csf=3.5                              # substrate in feed 
+Cxf=Cpf=0
+init_cond = [0, 3.5, 0, 0, 0]
 def r_prime(C):
         
-    mu = mumax*C[1]/(Km+C[1])*((1 + C[1]/Ks)**(-2))
+    mu = mumax*C[1]/(Km+C[1])*((1 + C[2]/Kp)**(-1))
     thetha = thethamax*(C[1]/(Km+C[1]))
     r = [mu]
     for i in range(len(Yg)-2):
         r.append((Yg[i+1]/Yg[0])*mu + (Ym[i+1]/Ym[-1])*thetha)        
     r[1] = -r[1]
     return r
+    
 rplot = []    
 def dNdt_fun(N,t):
     C = np.zeros(len(Yg))
@@ -44,13 +61,13 @@ def dNdt_fun(N,t):
     rplot.append(r[0])
     var = []
     for i in range(len(r)):  
-        Qf = (C[-1]*(r[1]*C[0]-kq))/(C[1]-init_cond[1])
-        
-        var.append(Qf*init_cond[i] - init_cond[-1]*C[i] + r[i]*C[0]*C[-1])
-    var.append(Qf - init_cond[-1])
+#        Qf = 500#(C[-1]*(r[1]*C[0]-kq))/(C[1]-init_cond[1])
+#        Q = Qf
+        var.append(Qf*init_cond[i] - Q*C[i] + r[i]*C[0]*C[-1])
+    var.append(Qf - Q)
     return var
     
-tspan = np.arange(0,500,0.01)
+tspan = np.arange(0,150,0.01)
 dt = tspan[1]
 
 N = odeint(dNdt_fun, No, tspan)
