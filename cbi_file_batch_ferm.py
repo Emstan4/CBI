@@ -58,7 +58,8 @@ Co = [0.4,0,2.2]
 #for qi in Qspan:           
 Co=fsolve(steady_state,Co,args=Q)  
 Csteady.append(Co)
-print Co 
+function = steady_state(Co,Q)
+print function 
 #plot.plot(tex,Csex,'o')
 rplot = []    
 def dNdt_fun(N,t):
