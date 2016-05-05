@@ -11,7 +11,7 @@ from matplotlib import pyplot as plot
 from scipy.integrate import odeint
 
 
-kq = 0.6
+kq = 0.005
     # X     S     P       ATP
 Yg = [0.25, 1 ,  0.52,    0.23]
 Ym = [0,    1 ,   0.8,    0.333]
@@ -40,14 +40,17 @@ def dNdt_fun(N,t):
         C[i] = N[i]/N[-1]
     C[-1] = N[-1] 
     r=r_prime(C)
+    
     rplot.append(r[0])
     var = []
-    for i in range(len(r)):        
-        var.append(init_cond[-2]*t*init_cond[i] - init_cond[-1]*C[i] + r[i]*C[0]*C[-1])
-    var.append(init_cond[-2]*t - init_cond[-1])
+    for i in range(len(r)):  
+        Qf = (C[-1]*(r[1]*C[0]-kq))/(C[1]-init_cond[1])
+        
+        var.append(Qf*init_cond[i] - init_cond[-1]*C[i] + r[i]*C[0]*C[-1])
+    var.append(Qf - init_cond[-1])
     return var
     
-tspan = np.arange(0,180,0.05)
+tspan = np.arange(0,500,0.01)
 dt = tspan[1]
 
 N = odeint(dNdt_fun, No, tspan)
@@ -82,18 +85,18 @@ prod = 3.548/time
 #x = ((Co[1] - Cs_1430)/Co[1])*100
 #Y_acc_1430= np.interp(1430,tspan , Y_acc)
 #vol_prod = max(Cp)/t_end
-print "Maximum rate:", overall_y
-#print "Production rate(3.548 cmol/L) = ", prod, "cmol/h L"
+#print "Maximum rate:", overall_y
+print "Production rate(0.3548 cmol/L) = ", prod, "cmol/h L"
 #print "Volumetric production rate:", prod, "cmol/L.h"
 #print "Y accumulated(1430) = ", Y_acc_1430  
 
-#plot.plot(tspan, Cp ,color='red',label='$C_{P}$')
-#plot.plot(tspan, Cs,color='black',label='$C_{S}$')
-#plot.plot(tspan, Cx,color='blue',label='$C_{X}$')
-#plot.legend(loc='best')
-#plot.ylabel('Concentration cmol/L') 
-#plot.xlabel('time (h)') 
-#plot.show()
-#plot.plot(Cp, Y_ins)
+plot.plot(tspan, Cp ,color='red',label='$C_{P}$')
+plot.plot(tspan, Cs,color='black',label='$C_{S}$')
+plot.plot(tspan, Cx,color='blue',label='$C_{X}$')
+plot.legend(loc='best')
+plot.ylabel('Concentration cmol/L') 
+plot.xlabel('time (h)') 
+plot.show()
+#plot.plot(Cp, rprod)
 
   
