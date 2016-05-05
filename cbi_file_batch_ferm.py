@@ -19,25 +19,25 @@ Csex=np.array([ 4.        ,  3.99809878,  3.99452932,  3.98782783,  3.97524613,
 tex=np.array([  0. ,   4.2,   8.4,  12.6,  16.8,  21. ,  25.2,  29.4,  33.6,
         37.8,  42. ])
 
-mumax,thethamax, Km, Kp= 0.3, 0.14, 0.0005, 0.5
+mumax,thethamax, Km,km2, Kp= 0.15, 0.1, 0.0005,0.00005, 1000
 #Cxo, Cso = 0.0003, 3.5
-Yg=[0.12, 1, 0.6 , 0.38] 
-Ym=[0, 1, 0.75, 0.46]                     
-Vo=10000                                   
+Yg=[0.18, 1, 0.5 , 0.3] 
+Ym=[0, 1, 0.65, 0.4]                     
+Vo=1000                                             
 Cxf=Csf=Cpf=0 
 
-Cso=0
+Cso=2.82385119
 Cxo = 0.0003
 Co=np.array([Cxo, Cso, 0, 1])     #[X, S, P, V]             
 No=Co*Vo
-Qf=Q=500                            # define throughflow 
-Csf=3.5                              # substrate in feed 
+Qf=Q=50                            # define throughflow 
+Csf=4                             # substrate in feed 
 Cxf=Cpf=0
-init_cond = [0, 3.5, 0, 0, 0]
+init_cond = [0, 4, 0, 0, 0]
 def r_prime(C):
 
     mu = mumax*C[1]/(Km+C[1])*((1 + C[2]/Kp)**(-1))
-    thetha = thethamax*(C[1]/(Km+C[1]))
+    thetha = thethamax*(C[1]/(km2+C[1]))
     r = [mu]
     for i in range(len(Yg)-2):
         r.append((Yg[i+1]/Yg[0])*mu + (Ym[i+1]/Ym[-1])*thetha)        
@@ -55,12 +55,11 @@ def steady_state(C,Q):
 Qspan = np.arange(200,2500,100)
 Csteady = []
 Co = [0.4,0,2.2]
-for qi in Qspan:           
-    Co=fsolve(steady_state,Co,args=qi)  
-    Csteady.append(Co)#Get estimate from graph above
-#print C_steady
-#plot.plot(Qspan, Csteady,'o') 
-plot.plot(tex,Csex,'o')
+#for qi in Qspan:           
+Co=fsolve(steady_state,Co,args=Q)  
+Csteady.append(Co)
+print Co 
+#plot.plot(tex,Csex,'o')
 rplot = []    
 def dNdt_fun(N,t):
     C = np.zeros(len(Yg))
@@ -76,7 +75,7 @@ def dNdt_fun(N,t):
     var.append(Qf - Q)
     return var
       
-tspan = np.arange(0,150,0.01)
+tspan = np.arange(0,500,0.01)
 dt = tspan[1]
 
 N = odeint(dNdt_fun, No, tspan)
@@ -116,9 +115,9 @@ prod = 3.548/time
 #print "Volumetric production rate:", prod, "cmol/L.h"
 #print "Y accumulated(1430) = ", Y_acc_1430  
 
-#plot.plot(tspan, Cp ,color='red',label='$C_{P}$')
-#plot.plot(tspan, Cs,color='black',label='$C_{S}$')
-#plot.plot(tspan, Cx,color='blue',label='$C_{X}$')
+plot.plot(tspan, Cp ,color='red',label='$C_{P}$')
+plot.plot(tspan, Cs,color='black',label='$C_{S}$')
+plot.plot(tspan, Cx,color='blue',label='$C_{X}$')
 #plot.legend(loc='best')
 #plot.ylabel('Concentration cmol/L') 
 #plot.xlabel('time (h)') 
