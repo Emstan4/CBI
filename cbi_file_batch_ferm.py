@@ -23,7 +23,7 @@ mumax,thethamax, Km,km2, Kp= 0.15, 0.1, 0.0005,0.00005, 1000
 #Cxo, Cso = 0.0003, 3.5
 Yg=[0.18, 1, 0.5 , 0.3] 
 Ym=[0, 1, 0.65, 0.4]                     
-Vo=1000                                             
+Vo=10000                                             
 Cxf=Csf=Cpf=0 
 
 Cso=2.82385119
@@ -51,15 +51,23 @@ def steady_state(C,Q):
     for i in range(len(r)):  
         vari.append(Qf*init_cond[i] - Q*C[i] + r[i]*C[0]*Vo)
     return vari
-
-Qspan = np.arange(200,2500,100)
+Qspan = np.arange(10,1500,1)
+D_list = Qspan/Vo
 Csteady = []
 Co = [0.4,0,2.2]
-#for qi in Qspan:           
-Co=fsolve(steady_state,Co,args=Q)  
-Csteady.append(Co)
-function = steady_state(Co,Q)
-print function 
+for qi in Qspan:           
+    Co=fsolve(steady_state,Co,args=qi)  
+    Csteady.append(Co)#Get estimate from graph above
+#print C_steady
+plot.plot(D_list, Csteady) 
+#Qspan = np.arange(200,2500,100)
+#Csteady = []
+#Co = [0.4,0,2.2]
+##for qi in Qspan:           
+#Co=fsolve(steady_state,Co,args=Q)  
+#Csteady.append(Co)
+#function = steady_state(Co,Q)
+#print function 
 #plot.plot(tex,Csex,'o')
 rplot = []    
 def dNdt_fun(N,t):
@@ -115,10 +123,10 @@ prod = 3.548/time
 #print "Production rate(0.3548 cmol/L) = ", prod, "cmol/h L"
 #print "Volumetric production rate:", prod, "cmol/L.h"
 #print "Y accumulated(1430) = ", Y_acc_1430  
-
-plot.plot(tspan, Cp ,color='red',label='$C_{P}$')
-plot.plot(tspan, Cs,color='black',label='$C_{S}$')
-plot.plot(tspan, Cx,color='blue',label='$C_{X}$')
+#
+#plot.plot(tspan, Cp ,color='red',label='$C_{P}$')
+#plot.plot(tspan, Cs,color='black',label='$C_{S}$')
+#plot.plot(tspan, Cx,color='blue',label='$C_{X}$')
 #plot.legend(loc='best')
 #plot.ylabel('Concentration cmol/L') 
 #plot.xlabel('time (h)') 
