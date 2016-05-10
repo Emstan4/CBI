@@ -59,7 +59,8 @@ for qi in Qspan:
     Co=fsolve(steady_state,Co,args=qi)  
     Csteady.append(Co)#Get estimate from graph above
 #print C_steady
-plot.plot(D_list, Csteady) 
+Csteady = np.array(Csteady)
+plot.plot(D_list, Csteady[:,1]) 
 #Qspan = np.arange(200,2500,100)
 #Csteady = []
 #Co = [0.4,0,2.2]
