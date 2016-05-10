@@ -19,11 +19,11 @@ Csex=np.array([ 4.        ,  3.99809878,  3.99452932,  3.98782783,  3.97524613,
 tex=np.array([  0. ,   4.2,   8.4,  12.6,  16.8,  21. ,  25.2,  29.4,  33.6,
         37.8,  42. ])
 
-mumax,thethamax, Km,km2, Kp= 0.15, 0.1, 0.0005,0.00005, 1000
+mumax,thethamax, Km,km2, Kp= 0.15, 0.1, 0.0005,0.0005, 1000
 #Cxo, Cso = 0.0003, 3.5
 Yg=[0.18, 1, 0.5 , 0.3] 
 Ym=[0, 1, 0.65, 0.4]                     
-Vo=10000                                             
+Vo=1000                                       
 Cxf=Csf=Cpf=0 
 
 Cso=2.82385119
@@ -51,25 +51,22 @@ def steady_state(C,Q):
     for i in range(len(r)):  
         vari.append(Qf*init_cond[i] - Q*C[i] + r[i]*C[0]*Vo)
     return vari
-Qspan = np.arange(10,1500,1)
+Qspan = np.arange(1,200,1)
 D_list = Qspan/Vo
 Csteady = []
 Co = [0.4,0,2.2]
+P_list = []
 for qi in Qspan:           
-    Co=fsolve(steady_state,Co,args=qi)  
-    Csteady.append(Co)#Get estimate from graph above
-#print C_steady
+    Co=fsolve(steady_state,Co,args=qi) 
+    Ysp_o=Co[2]/(Csf-Co[1])
+    P = Co[2]#*qi/Vo
+    P_list.append(Ysp_o)
+    Csteady.append(Co)
+
 Csteady = np.array(Csteady)
-plot.plot(D_list, Csteady[:,1]) 
-#Qspan = np.arange(200,2500,100)
-#Csteady = []
-#Co = [0.4,0,2.2]
-##for qi in Qspan:           
-#Co=fsolve(steady_state,Co,args=Q)  
-#Csteady.append(Co)
-#function = steady_state(Co,Q)
-#print function 
-#plot.plot(tex,Csex,'o')
+plot.plot(D_list, P_list) 
+D = np.interp(0.01,D_list,P_list)
+print D
 rplot = []    
 def dNdt_fun(N,t):
     C = np.zeros(len(Yg))
