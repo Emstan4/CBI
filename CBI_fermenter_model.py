@@ -81,7 +81,7 @@ for i, t in enumerate(tspan):
      
 
 plot.plot(tspan, Ce_list, color='blue', label='e')
-#plot.plot(Cl_list, yield_list, color='black', label='yield')
+#pot.plot(Cl_list, yield_list, color='black', label='yield')
 plot.plot(tspan, Cs_list, color='red',label='s')
 plot.plot(tspan, Cx_list, color='green',label='x')
 
