@@ -21,11 +21,11 @@ Ym=[0,1,    1,   3.567 ]
 Vo=5000                                       
 Cxf=Csf=Cpf=0 
 
-Cso=4.167
+Cso=0#4.167
 Cxo = 0.0126
 Co=np.array([Cxo, Cso, 0, 1])     #[X, S, P, V]             
 No=Co*Vo
-Qf=Q=0#1267.727
+Qf=Q=133#1267.727
                    # define throughflow 
 Csf=4.167                             # substrate in feed 
 Cxf=Cpf=0
@@ -79,7 +79,7 @@ def dNdt_fun(N,t):
     var.append(Qf - Q)
     return var
       
-tspan = np.arange(0,15,0.1)
+tspan = np.arange(0,200,0.1)
 dt = tspan[1]
 
 N = odeint(dNdt_fun, No, tspan)
@@ -100,7 +100,7 @@ Y_acc = N[:,2]/(No[1] - N[:,1])
 #print Y[-1]
 #print Y_acc[-1]
 z = (Yg[1]/Yg[0])*rx/rs
-
+print z[-1]
 #y_obs = z*Yg[2] + (1-z)*Ym[2]
 Cx=N[:,0]/N[:,3]                           #divide cmol amount by the volume to get concentration 
 Cs=N[:,1]/N[:,3]
