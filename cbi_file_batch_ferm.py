@@ -21,11 +21,11 @@ Ym=[0,1,    1,   3.567 ]
 Vo=5000                                       
 Cxf=Csf=Cpf=0 
 
-Cso=0
+Cso=4.167
 Cxo = 0.0126
 Co=np.array([Cxo, Cso, 0, 1])     #[X, S, P, V]             
 No=Co*Vo
-Qf=Q=1267.727
+Qf=Q=0#1267.727
                    # define throughflow 
 Csf=4.167                             # substrate in feed 
 Cxf=Cpf=0
@@ -79,7 +79,7 @@ def dNdt_fun(N,t):
     var.append(Qf - Q)
     return var
       
-tspan = np.arange(0,500,0.1)
+tspan = np.arange(0,15,0.1)
 dt = tspan[1]
 
 N = odeint(dNdt_fun, No, tspan)
@@ -113,12 +113,12 @@ Cp=N[:,2]/N[:,3]
 sol = np.interp(0.00001, Cs[::-1], tspan[::-1])
 #print (max(Cx)/sol)*23.9
 
-print Cs[-1]*30*1000
-P = Cx[-1]*Q*23.9/Vo
-
-yield_p = (Cx[-1]/(Csf - Cs[-1]))
-print yield_p
-print P, 'mg/L h'
+#print Cs[-1]*30*1000
+#P = Cx[-1]*Q*23.9/Vo
+#
+#yield_p = (Cx[-1]/(Csf - Cs[-1]))
+#print yield_p
+#print P, 'mg/L h'
 #print sol
 #x = ((Co[1] - Cs_1430)/Co[1])*100
 #Y_acc_1430= np.interp(1430,tspan , Y_acc)
@@ -128,9 +128,16 @@ print P, 'mg/L h'
 #print "Volumetric production rate:", prod, "cmol/L.h"
 #print "Y accumulated(1430) = ", Y_acc_1430  
 #
-#plot.plot(tspan, Cp ,color='red',label='$C_{P}$')
-#plot.plot(tspan, Cs,color='black',label='$C_{S}$')
-#plot.plot(tspan, Cx,color='blue',label='$C_{X}$')
+plot.subplot(4,1,1)
+plot.plot(tspan, Cp ,color='red',label='$C_{P}$')
+plot.plot(tspan, Cs,color='black',label='$C_{S}$')
+plot.plot(tspan, Cx,color='blue',label='$C_{X}$')
+plot.subplot(4,1,2)
+plot.plot(tspan, z)
+plot.subplot(4,1,3)
+plot.plot(tspan, rx)
+plot.subplot(4,1,4)
+plot.plot(tspan, rs)
 #plot.legend(loc='best')
 #plot.ylabel('Concentration cmol/L') 
 #plot.xlabel('time (h)') 
