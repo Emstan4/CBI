@@ -48,20 +48,20 @@ def steady_state(C,Q):
     for i in range(len(r)):  
         vari.append(Qf*init_cond[i] - Q*C[i] + r[i]*C[0]*Vo)
     return vari
-#Qspan = np.arange(1,200,1)
-#D_list = Qspan/Vo
-#Csteady = []
-#Co = [0.4,0,2.2]
-#P_list = []
-#for qi in Qspan:           
-#    Co=fsolve(steady_state,Co,args=qi) 
-#    Ysp_o=Co[2]/(Csf-Co[1])
-#    P = Co[2]#*qi/Vo
-#    P_list.append(Ysp_o)
-#    Csteady.append(Co)
+Qspan = np.arange(50,2000,1)
+D_list = Qspan/Vo
+Csteady = []
+Co = [0.4,0,2.2]
+P_list = []
+for qi in Qspan:           
+    Co=fsolve(steady_state,Co,args=qi) 
+    Ysp_o=Co[2]/(Csf-Co[1])
+    P = Co[2]#*qi/Vo
+    P_list.append(Ysp_o)
+    Csteady.append(Co)
 
-#Csteady = np.array(Csteady)
-#plot.plot(D_list, P_list) 
+Csteady = np.array(Csteady)
+plot.plot(D_list, Csteady) 
 #D = np.interp(0.01,D_list,P_list)
 #print D
 rplot = []    
@@ -128,16 +128,16 @@ sol = np.interp(0.00001, Cs[::-1], tspan[::-1])
 #print "Volumetric production rate:", prod, "cmol/L.h"
 #print "Y accumulated(1430) = ", Y_acc_1430  
 #
-plot.subplot(4,1,1)
-plot.plot(tspan, Cp ,color='red',label='$C_{P}$')
-plot.plot(tspan, Cs,color='black',label='$C_{S}$')
-plot.plot(tspan, Cx,color='blue',label='$C_{X}$')
-plot.subplot(4,1,2)
-plot.plot(tspan, z)
-plot.subplot(4,1,3)
-plot.plot(tspan, rx)
-plot.subplot(4,1,4)
-plot.plot(tspan, rs)
+#plot.subplot(4,1,1)
+#plot.plot(tspan, Cp ,color='red',label='$C_{P}$')
+#plot.plot(tspan, Cs,color='black',label='$C_{S}$')
+#plot.plot(tspan, Cx,color='blue',label='$C_{X}$')
+#plot.subplot(4,1,2)
+#plot.plot(tspan, z)
+#plot.subplot(4,1,3)
+#plot.plot(tspan, rx)
+#plot.subplot(4,1,4)
+#plot.plot(tspan, rs)
 #plot.legend(loc='best')
 #plot.ylabel('Concentration cmol/L') 
 #plot.xlabel('time (h)') 
