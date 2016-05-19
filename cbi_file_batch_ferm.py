@@ -21,11 +21,12 @@ Ym=[0,1,    1,   3.567 ]
 Vo=5000                                       
 Cxf=Csf=Cpf=0 
 
-Cso=4.167
+Cso=0
 Cxo = 0.0126
 Co=np.array([Cxo, Cso, 0, 1])     #[X, S, P, V]             
 No=Co*Vo
-Qf=Q=0                    # define throughflow 
+Qf=Q=1267.727
+                   # define throughflow 
 Csf=4.167                             # substrate in feed 
 Cxf=Cpf=0
 
@@ -112,9 +113,10 @@ Cp=N[:,2]/N[:,3]
 sol = np.interp(0.00001, Cs[::-1], tspan[::-1])
 #print (max(Cx)/sol)*23.9
 
-#print Cs[-1]*30*1000
+print Cs[-1]*30*1000
 P = Cx[-1]*Q*23.9/Vo
-yield_p = (Cx[-1]/(Cso - Cs[-1]))
+
+yield_p = (Cx[-1]/(Csf - Cs[-1]))
 print yield_p
 print P, 'mg/L h'
 #print sol
