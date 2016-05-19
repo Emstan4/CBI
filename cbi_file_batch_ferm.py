@@ -21,14 +21,15 @@ Ym=[0,1,    1,   3.567 ]
 Vo=5000                                       
 Cxf=Csf=Cpf=0 
 
-Cso=4.167
+Cso=0
 Cxo = 0.0126
 Co=np.array([Cxo, Cso, 0, 1])     #[X, S, P, V]             
 No=Co*Vo
-Qf=Q=0                           # define throughflow 
+Qf=Q=132.9                      # define throughflow 
 Csf=0                             # substrate in feed 
 Cxf=Cpf=0
-init_cond = [0, 0, 0, 0, 0]
+
+init_cond = [0, 4.167, 0, 0, 0]
 def r_prime(C):
 
     mu = mumax*C[1]/(Km+C[1])#*((1 + C[2]/Kp)**(-1))
@@ -77,7 +78,7 @@ def dNdt_fun(N,t):
     var.append(Qf - Q)
     return var
       
-tspan = np.arange(0,100,0.1)
+tspan = np.arange(0,500,0.1)
 dt = tspan[1]
 
 N = odeint(dNdt_fun, No, tspan)
@@ -109,7 +110,11 @@ Cp=N[:,2]/N[:,3]
 #overall_y = np.interp(3.548, Cp, y_obs)
 #prod = 3.548/time
 sol = np.interp(0.00001, Cs[::-1], tspan[::-1])
-print (max(Cx)/sol)*23.9
+#print (max(Cx)/sol)*23.9
+
+#print Cs[-1]*30*1000
+P = Cx[-1]*Q*23.9/Vo
+print P, 'mg/L h'
 #print sol
 #x = ((Co[1] - Cs_1430)/Co[1])*100
 #Y_acc_1430= np.interp(1430,tspan , Y_acc)
