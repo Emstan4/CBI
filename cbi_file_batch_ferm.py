@@ -26,7 +26,7 @@ Cxo = 0.0126
 Co=np.array([Cxo, Cso, 0, 1])     #[X, S, P, V]             
 No=Co*Vo
 Qf=Q=132.9                      # define throughflow 
-Csf=0                             # substrate in feed 
+Csf=4.167                             # substrate in feed 
 Cxf=Cpf=0
 
 init_cond = [0, 4.167, 0, 0, 0]
@@ -114,6 +114,8 @@ sol = np.interp(0.00001, Cs[::-1], tspan[::-1])
 
 #print Cs[-1]*30*1000
 P = Cx[-1]*Q*23.9/Vo
+yield_p = Cx[-1]/(Csf - Cs[-1])
+print yield_p
 print P, 'mg/L h'
 #print sol
 #x = ((Co[1] - Cs_1430)/Co[1])*100
