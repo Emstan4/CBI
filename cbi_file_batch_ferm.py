@@ -27,8 +27,7 @@ Yxs_g = 1/Yg[0]
 
 Sg[2] = [1,0, 0, 0]       
 Yg = np.linalg.solve(Sg,Cg)
-Yatp_sm = (2/3)*Yg[1] + 3*Yg[-1]
-print Yxs_g, Yatp_sm
+
 #print Yg  
 dt = 0.1
 tspan = np.arange(0,50,dt)
@@ -46,14 +45,3 @@ csi = cs_ex[0]
 
 r_max = (Yxs_g[0,0]*mu + (1/Yatp_sm[0,0])*theta)*(30/24.6)
 print r_max
-for t in tspan:
-    
-    dcxdt = mu*cxi
-    dcsdt = -(Yxs_g[0,0]*mu + (1/Yatp_sm[0,0])*theta)*cxi
-    cxi += dcxdt*dt
-    csi += dcsdt*dt
-    Cx.append(cxi)
-    Cs.append(csi)
-plot.plot(tspan, Cx, tspan, Cs)
-plot.plot(tex, cx_ex, '*')
-plot.plot(tex, cs_ex, '*')  
