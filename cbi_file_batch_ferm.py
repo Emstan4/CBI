@@ -15,7 +15,7 @@ b = .1
 g = 2.5
 mu = 0.12
 theta = 0.123
-lambda_max = 0.24245455
+lambda_max = 0.24245455/3
 
 Sg = np.matrix([[1+a,1,0.75,0],
                 [b,2,0,-2],
