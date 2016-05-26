@@ -47,7 +47,7 @@ cs_ex = [100/30, 76.63/30]
 cxi = cx_ex[0]
 csi = cs_ex[0]
 
-print Yg[2][0,0]*lambda_max*cx_ex[1]*(33.5)/3
+print Yg[-1][0,0]*lambda_max*cx_ex[1]*1000/3
 
 #maximum possible glycolyctic flux
 
