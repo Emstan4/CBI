@@ -32,9 +32,8 @@ Yxs_g = 1/Yg[0]
 Yg = np.linalg.solve(Sg,Cg)
 Yatp_sm = (2/3)*Yg[1] + 3*Yg[-1]
 
-lambda_max = Yxs_g*mu + (1/Yatp_sm)*theta
+#lambda_max = Yxs_g*mu + (1/Yatp_sm)*theta
 #print lambda_max
-print Yg[2][0,0]*(33.5/30)
 #print Yxs_g, Yatp_sm
 #print Yg  
 dt = 0.1
@@ -48,7 +47,9 @@ cs_ex = [100/30, 76.63/30]
 cxi = cx_ex[0]
 csi = cs_ex[0]
 
+print Yg[2][0,0]*lambda_max*cx_ex[1]*(33.5)/3
+
 #maximum possible glycolyctic flux
 
-r_max = (Yxs_g[0,0]*mu + (1/Yatp_sm[0,0])*theta)*(30/24.6)
+r_max = (Yxs_g[0,0]*mu + (1/Yatp_sm[0,0])*theta)*(33/24.6)
 #print r_max
