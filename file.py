@@ -12,12 +12,12 @@ import numpy as np
 alpha, beta, gamma, PO =0.1, 0.1,2.2, 1.5
 mu_max, theta= 0.25, 0.08
 Cp_s = 35
-Cp = 14
+Cp = 35
 mu = mu_max*(1 - Cp/Cp_s)
-klg = 150 # 1/h
+klg = 0 # 1/h
 c_o2 = 31/1000 # g
 r_mt_max = klg*c_o2*(1/32)*.21
-Cx = 12/24.6
+Cx = 15/24.6
 #               v0      v1     v2      v3       v4      v5      v6      v7      v8      v9      v10     v11
 S1 = np.matrix([[-1,1+alpha,     1,      0,      0,      0,      0,      0,      0,      0,      0,      0],
                 
@@ -52,5 +52,5 @@ Cx = 8/24.6
 ro2 = r_mt_max/Cx
 
 
-print r[-3]
+print r[-3]/r[0]
 
