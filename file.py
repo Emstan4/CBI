@@ -14,7 +14,7 @@ mu_max, theta= 0.25, 0.08
 Cp_s = 35
 Cp = 14
 mu = mu_max*(1 - Cp/Cp_s)
-klg = 200 # 1/h
+klg = 150 # 1/h
 c_o2 = 31/1000 # g
 r_mt_max = klg*c_o2*(1/32)*.21
 Cx = 12/24.6
@@ -52,5 +52,5 @@ Cx = 8/24.6
 ro2 = r_mt_max/Cx
 
 
-print r[-3]/r[0]
+print r[-3]
 
