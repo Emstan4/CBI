@@ -10,7 +10,7 @@ import numpy as np
 
 
 alpha, beta, gamma, PO =0.1, 0.1,2.2, 1.5
-mu, theta= 0.25, 0.08
+mu, theta= 0.17, 0.08
 
 
 klg = 200 # 1/h
@@ -43,11 +43,12 @@ S1 = np.matrix([[-1,1+alpha,     1,      0,      0,      0,      0,      0,     
                    
 C = np.matrix( [0,      0,      0,      0,      0,      0,      0,      0,      theta,  0,     mu,      0]).T
 r = np.linalg.solve(S1, C)        #solving for rates instead of yields
-
+Cx = 8/24.6
 r_mt_max = klg*c_o2*(1/32)*.21
 
-Cx = r_mt_max/r[-2][0,0]
+ro2 = r_mt_max/Cx
 
-print Cx*24.6
-#print r[-2]#(r[1,0]/r[0,0])*(24.6/30)
+
+print ro2
+print r[-2]#(r[1,0]/r[0,0])*(24.6/30)
 
