@@ -10,7 +10,7 @@ import numpy as np
 
 
 alpha, beta, gamma, PO =0.1, 0.1,2.2, 1.5
-mu, theta= 0.17, 0.08
+mu, theta= 0, 0.08
 
 
 klg = 200 # 1/h
@@ -49,6 +49,5 @@ r_mt_max = klg*c_o2*(1/32)*.21
 ro2 = r_mt_max/Cx
 
 
-print ro2
-print r[-2]#(r[1,0]/r[0,0])*(24.6/30)
+print r[0]*(30/24.6)
 
