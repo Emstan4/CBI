@@ -52,5 +52,5 @@ Cx = 8/24.6
 ro2 = r_mt_max/Cx
 
 
-print r[1]
+print r[-3]/r[0]
 
